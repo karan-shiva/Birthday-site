@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import styles from './Hero.module.css'
@@ -23,9 +23,9 @@ const itemVariants = {
 }
 
 const BALLOONS = [
-  { color: '#FF6B9D', size: 70, left: '8%',  delay: '0s',    duration: '3.4s' },
-  { color: '#A78BFA', size: 55, left: '50%', delay: '0.6s',  duration: '4s'   },
-  { color: '#FFD700', size: 65, left: '88%', delay: '1.1s',  duration: '3s'   },
+  { color: '#FF6B9D', size: 70, left: '8%', delay: '0s', duration: '3.4s' },
+  { color: '#A78BFA', size: 55, left: '50%', delay: '0.6s', duration: '4s' },
+  { color: '#FFD700', size: 65, left: '88%', delay: '1.1s', duration: '3s' },
 ]
 
 function Balloon({ color, size, left, delay, duration }) {
@@ -52,32 +52,43 @@ function Balloon({ color, size, left, delay, duration }) {
 }
 
 export default function Hero() {
-  const confettiFired = useRef(false)
-
   useEffect(() => {
-    if (confettiFired.current) return
-    confettiFired.current = true
+    const colors = ['#FFD700', '#FF6B9D', '#A78BFA', '#4ECDC4', '#ffffff']
 
-    const timer = setTimeout(() => {
-      confetti({
-        particleCount: 90,
-        angle: 60,
-        spread: 70,
-        origin: { x: 0, y: 0.5 },
-        colors: ['#FFD700', '#FF6B9D', '#A78BFA', '#4ECDC4', '#ffffff'],
-        scalar: 1.1,
-      })
-      confetti({
-        particleCount: 90,
-        angle: 120,
-        spread: 70,
-        origin: { x: 1, y: 0.5 },
-        colors: ['#FFD700', '#FF6B9D', '#A78BFA', '#4ECDC4', '#ffffff'],
-        scalar: 1.1,
-      })
+    // Phase 1 — big side + center burst at 1.5s
+    const timer1 = setTimeout(() => {
+      confetti({ particleCount: 160, angle: 60,  spread: 80,  origin: { x: 0,   y: 0.5 }, colors, scalar: 1.2 })
+      confetti({ particleCount: 160, angle: 120, spread: 80,  origin: { x: 1,   y: 0.5 }, colors, scalar: 1.2 })
+      confetti({ particleCount: 80,              spread: 100, origin: { x: 0.5, y: 0.2 }, colors, scalar: 1.1 })
     }, 1500)
 
-    return () => clearTimeout(timer)
+    // Phase 2 — gentle continuous shower from the top for 4 seconds
+    let animFrame
+    let start = null
+    const shower = (timestamp) => {
+      if (!start) start = timestamp
+      if (timestamp - start > 4000) return
+      confetti({
+        particleCount: 4,
+        angle: 270,
+        spread: 130,
+        origin: { x: Math.random(), y: 0 },
+        colors,
+        gravity: 0.8,
+        scalar: 0.9,
+      })
+      animFrame = requestAnimationFrame(shower)
+    }
+
+    const timer2 = setTimeout(() => {
+      animFrame = requestAnimationFrame(shower)
+    }, 2000)
+
+    return () => {
+      clearTimeout(timer1)
+      clearTimeout(timer2)
+      if (animFrame) cancelAnimationFrame(animFrame)
+    }
   }, [])
 
   return (
@@ -97,16 +108,16 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1 className={styles.name} variants={itemVariants}>
-          Happy Birthday, Alex!
+          Happy Birthday, Yuga!
         </motion.h1>
 
         <motion.div className={styles.ageBadge} variants={itemVariants}>
-          <span className={styles.ageNumber}>25</span>
+          <span className={styles.ageNumber}>26</span>
           <span className={styles.ageLabel}>years of awesomeness</span>
         </motion.div>
 
         <motion.p className={styles.tagline} variants={itemVariants}>
-          A quarter century of laughter, love, and unforgettable moments.
+          Welcome to your late 20s
         </motion.p>
 
         <motion.button
