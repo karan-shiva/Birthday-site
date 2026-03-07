@@ -1,84 +1,78 @@
+import React from 'react'
 import { motion } from 'framer-motion'
-import { FaExpand, FaHeart } from 'react-icons/fa'
 import styles from './Gallery.module.css'
 
-const GALLERY = [
-  { id: 1, gradient: 'linear-gradient(135deg, #A78BFA 0%, #FF6B9D 100%)', label: 'Sweet Memories',   aspect: 'tall'   },
-  { id: 2, gradient: 'linear-gradient(135deg, #4ECDC4 0%, #A78BFA 100%)', label: 'Best Friends',     aspect: 'wide'   },
-  { id: 3, gradient: 'linear-gradient(135deg, #FFD700 0%, #FF6B9D 100%)', label: 'Celebrations',     aspect: 'square' },
-  { id: 4, gradient: 'linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 100%)', label: 'Adventures',       aspect: 'square' },
-  { id: 5, gradient: 'linear-gradient(135deg, #302b63 0%, #A78BFA 100%)', label: 'Precious Moments', aspect: 'tall'   },
-  { id: 6, gradient: 'linear-gradient(135deg, #FFD700 0%, #4ECDC4 100%)', label: 'Good Times',       aspect: 'wide'   },
-  { id: 7, gradient: 'linear-gradient(135deg, #302b63 0%, #FF6B9D 100%)', label: 'Favorites',        aspect: 'square' },
-  { id: 8, gradient: 'linear-gradient(135deg, #A78BFA 0%, #FFD700 100%)', label: 'Golden Days',      aspect: 'square' },
-]
+const rows = new Array(50).fill(1)
+const cols = new Array(33).fill(1)
 
-const cellVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: (i) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: i * 0.07, duration: 0.5, ease: 'easeOut' },
-  }),
+const BoxesCore = () => {
+  return (
+    <div
+      className={styles.boxesContainer}
+      style={{
+        transform: 'translate(-40%,-60%) skewX(-18deg) skewY(5.25deg) scale(0.675) rotate(0deg) translateZ(0)',
+      }}
+    >
+      {rows.map((_, i) => (
+        <div key={`row-${i}`} className={styles.row}>
+          {cols.map((_, j) => (
+            <motion.div
+              key={`col-${j}`}
+              className={styles.col}
+              style={{
+                backgroundImage: "url('/Gemini_Generated_Image_kx1v28kx1v28kx1v.png')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+              whileHover={{
+                backgroundImage: "url('/IMG_3247.jpeg')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                transition: { duration: 0 },
+              }}
+            >
+              {j % 2 === 0 && i % 2 === 0 ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className={styles.plusIcon}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+              ) : null}
+            </motion.div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
 }
+
+const Boxes = React.memo(BoxesCore)
 
 export default function Gallery() {
   return (
     <section id="gallery" className={styles.section}>
-      <motion.div
-        className={styles.header}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <p className={styles.eyebrow}>A life beautifully lived</p>
-        <h2 className={styles.heading}>Memory Gallery</h2>
-        <p className={styles.subheading}>
-          Every picture tells a story — add your photos to make this truly yours.
-        </p>
-      </motion.div>
-
-      <motion.div
-        className={styles.grid}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-      >
-        {GALLERY.map((item, i) => (
+      <div className={styles.boxesWrapper}>
+        <div className={styles.mask} />
+        <Boxes />
+        <div className={styles.header}>
           <motion.div
-            key={item.id}
-            className={`${styles.cell} ${styles[item.aspect]}`}
-            custom={i}
-            variants={cellVariants}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <div
-              className={styles.cellBg}
-              style={{ background: item.gradient }}
-            />
-            <div className={styles.overlay}>
-              <div className={styles.overlayContent}>
-                <FaHeart className={styles.overlayIcon} />
-                <span className={styles.overlayLabel}>{item.label}</span>
-                <FaExpand className={styles.expandIcon} />
-              </div>
-            </div>
-            <div className={styles.cellLabel}>
-              <span>{item.label}</span>
-            </div>
+            <h2 className={styles.heading}>Memory Gallery</h2>
+            <p className={styles.subheading}>
+              Hover the tiles to walk down memory lane.
+            </p>
           </motion.div>
-        ))}
-      </motion.div>
-
-      <motion.p
-        className={styles.hint}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.7 }}
-        viewport={{ once: true }}
-      >
-        ✨ Replace the gradient placeholders with real photos to personalize this gallery
-      </motion.p>
+        </div>
+      </div>
     </section>
   )
 }

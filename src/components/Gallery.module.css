@@ -1,13 +1,16 @@
 .section {
-  padding: var(--space-xl) var(--space-md);
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: var(--space-xl) 0;
   padding-bottom: calc(var(--space-xl) * 1.5);
 }
 
 .header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  margin-bottom: 3.5rem;
+  z-index: 30;
+  pointer-events: none;
 }
 
 .eyebrow {
@@ -31,162 +34,70 @@
 }
 
 .subheading {
-  font-size: 1rem;
-  color: var(--text-muted);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  letter-spacing: 0.06em;
   max-width: 420px;
   margin: 0 auto;
   line-height: 1.6;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 0, 0, 0.7);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 200px;
-  gap: 1rem;
-}
+/* Boxes grid */
 
-.cell {
+.boxesWrapper {
   position: relative;
-  border-radius: var(--glass-radius);
+  width: 100%;
+  height: 900px;
   overflow: hidden;
-  cursor: pointer;
-  transition: transform var(--transition-bounce), box-shadow var(--transition-base);
+  background: #0a0820;
 }
 
-.cell:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--glow-purple);
-  z-index: 2;
-}
-
-.tall   { grid-row: span 2; }
-.wide   { grid-column: span 2; }
-.square { /* default */ }
-
-.cellBg {
+.mask {
   position: absolute;
   inset: 0;
-  transition: transform var(--transition-base);
-}
-
-.cell:hover .cellBg {
-  transform: scale(1.05);
-}
-
-/* Glass shimmer on top of gradient */
-.cell::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 50%,
-    rgba(0, 0, 0, 0.15) 100%
-  );
-  z-index: 1;
+  background: #0a0820;
+  z-index: 20;
+  mask-image: radial-gradient(transparent, #0a0820);
+  -webkit-mask-image: radial-gradient(transparent, #0a0820);
   pointer-events: none;
 }
 
-.overlay {
+.boxesContainer {
   position: absolute;
-  inset: 0;
-  background: rgba(10, 8, 40, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  left: 25%;
+  top: -25%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity var(--transition-base);
-  z-index: 2;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
-.cell:hover .overlay {
-  opacity: 1;
+.row {
+  width: 192px;
+  height: 144px;
+  border-left: 1px solid #334155;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.overlayContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: white;
+.col {
+  width: 192px;
+  height: 144px;
+  border-right: 1px solid #334155;
+  border-top: 1px solid #334155;
+  position: relative;
 }
 
-.overlayIcon {
-  font-size: 1.75rem;
-  color: var(--accent-pink);
-  filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.8));
-}
-
-.overlayLabel {
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-align: center;
-  padding: 0 1rem;
-}
-
-.expandIcon {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 0.25rem;
-}
-
-/* Bottom label (always visible) */
-.cellLabel {
+.plusIcon {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-  z-index: 1;
-  transition: opacity var(--transition-base);
-}
-
-.cell:hover .cellLabel {
-  opacity: 0;
-}
-
-.cellLabel span {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-}
-
-.hint {
-  text-align: center;
-  margin-top: 2.5rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 180px;
-  }
-  .wide {
-    grid-column: span 1;
-  }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 200px;
-  }
-  .tall {
-    grid-row: span 1;
-  }
-  .wide {
-    grid-column: span 1;
-  }
-  .section {
-    padding: var(--space-lg) var(--space-sm);
-  }
+  height: 24px;
+  width: 40px;
+  top: -14px;
+  left: -22px;
+  color: #334155;
+  stroke-width: 1px;
+  pointer-events: none;
 }
