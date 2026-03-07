@@ -1,0 +1,143 @@
+.section {
+  padding: var(--space-xl) var(--space-md);
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-pink);
+  text-shadow: var(--glow-pink);
+  margin-bottom: 0.75rem;
+}
+
+.heading {
+  font-family: var(--font-hero);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.date {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  letter-spacing: 0.1em;
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.chip {
+  flex: 1;
+}
+
+.chipInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-top: 2px solid var(--chip-accent, var(--accent-gold));
+  border-radius: var(--glass-radius);
+  position: relative;
+  overflow: hidden;
+}
+
+.chipInner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.chipValue {
+  font-family: var(--font-hero);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+  transition: opacity 0.1s;
+}
+
+.chipValue.flipping {
+  animation: flipIn 0.4s ease;
+}
+
+@keyframes flipIn {
+  0%   { transform: rotateX(0deg);  opacity: 1; }
+  49%  { transform: rotateX(90deg); opacity: 0; }
+  50%  { transform: rotateX(90deg); opacity: 0; }
+  100% { transform: rotateX(0deg);  opacity: 1; }
+}
+
+.chipLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+  font-weight: 500;
+}
+
+/* Birthday state */
+.birthdayCard {
+  text-align: center;
+  padding: 4rem 3rem;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.birthdayEmoji {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.birthdayMsg {
+  font-family: var(--font-hero);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+}
+
+.birthdaySubmsg {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+  .chips {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .chips {
+    grid-template-columns: 1fr;
+  }
+}
