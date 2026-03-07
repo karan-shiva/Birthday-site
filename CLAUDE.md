@@ -20,9 +20,8 @@ src/
 └── components/
     ├── ParticleBackground.jsx  # Fixed animated orb layer (pure CSS)
     ├── Hero.jsx                # 100vh hero with confetti + balloons
-    ├── Countdown.jsx           # Live countdown to birthday date
+    ├── Gallery.jsx             # Photo/gradient gallery grid
     ├── Messages.jsx            # Wish cards grid
-    └── Gallery.jsx             # Photo/gradient gallery grid
 ```
 
 ## Design System
@@ -34,6 +33,5 @@ All design tokens live in `src/index.css` as CSS custom properties. Key tokens:
 
 ## Customization
 - **Person name/age:** Edit `Hero.jsx`
-- **Birthday date:** Edit the `TARGET_DATE` constant in `Countdown.jsx`
 - **Wish cards:** Edit `WISHES` array in `Messages.jsx`
 - **Gallery photos:** Replace gradient `<div>` backgrounds in `Gallery.jsx` with real `<img>` tags

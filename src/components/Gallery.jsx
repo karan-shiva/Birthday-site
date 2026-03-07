@@ -24,7 +24,7 @@ const cellVariants = {
 
 export default function Gallery() {
   return (
-    <section className={styles.section}>
+    <section id="gallery" className={styles.section}>
       <motion.div
         className={styles.header}
         initial={{ opacity: 0, y: 50 }}

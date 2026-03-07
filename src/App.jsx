@@ -1,6 +1,5 @@
 import ParticleBackground from './components/ParticleBackground'
 import Hero from './components/Hero'
-import Countdown from './components/Countdown'
 import Messages from './components/Messages'
 import Gallery from './components/Gallery'
 
@@ -10,9 +9,8 @@ function App() {
       <ParticleBackground />
       <main>
         <Hero />
-        <Countdown />
-        <Messages />
         <Gallery />
+        <Messages />
       </main>
     </>
   )

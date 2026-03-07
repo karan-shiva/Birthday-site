@@ -115,7 +115,7 @@ export default function Hero() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
           onClick={() =>
-            document.getElementById('countdown')?.scrollIntoView({ behavior: 'smooth' })
+            document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
           }
         >
           Explore Memories ↓
