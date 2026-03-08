@@ -53,11 +53,14 @@ const BoxesCore = () => {
 
 const Boxes = React.memo(BoxesCore)
 
-export default function Gallery() {
+export default function Gallery({ maskGradient, label = 'Hover the tiles to walk down memory lane.' }) {
   return (
     <section id="gallery" className={styles.section}>
       <div className={styles.boxesWrapper}>
-        <div className={styles.mask} />
+        <div
+          className={styles.mask}
+          style={maskGradient ? { maskImage: maskGradient, WebkitMaskImage: maskGradient } : undefined}
+        />
         <Boxes />
         <div className={styles.header}>
           <motion.div
@@ -67,11 +70,25 @@ export default function Gallery() {
             viewport={{ once: true, amount: 0.3 }}
           >
             <h2 className={styles.heading}>Memory Gallery</h2>
-            <p className={styles.subheading}>
-              Hover the tiles to walk down memory lane.
-            </p>
+            <p className={styles.subheading}>{label}</p>
           </motion.div>
         </div>
+      </div>
+      <div className={styles.ctaWrapper}>
+        <motion.button
+          className={`${styles.cta} glass`}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() =>
+            document.getElementById('wishwheel')?.scrollIntoView({ behavior: 'smooth' })
+          }
+        >
+          Read Birthday Wishes ↓
+        </motion.button>
       </div>
     </section>
   )
