@@ -76,7 +76,7 @@ const calcPosition = (index, total, rotation, radius = 200) => {
   }
 }
 
-export default function WishWheel() {
+export default function WishWheel({ onOpenShop }) {
   const [expandedItems, setExpandedItems] = useState({})
   const [autoRotate, setAutoRotate] = useState(true)
   const [pulseEffect, setPulseEffect] = useState({})
@@ -374,7 +374,7 @@ export default function WishWheel() {
           className={styles.cta}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
-          onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={onOpenShop}
         >
           Surprise
         </motion.button>

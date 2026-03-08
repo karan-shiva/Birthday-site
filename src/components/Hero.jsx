@@ -67,7 +67,7 @@ export default function Hero() {
     let start = null
     const shower = (timestamp) => {
       if (!start) start = timestamp
-      if (timestamp - start > 4000) return
+      if (timestamp - start > 2000) return
       confetti({
         particleCount: 4,
         angle: 270,

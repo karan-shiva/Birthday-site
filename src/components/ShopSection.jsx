@@ -1,19 +1,21 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ShopHero from './ShopHero'
 import CategoryGrid from './CategoryGrid'
 import ProductGrid from './ProductGrid'
 import Confirmation from './Confirmation'
 
-export default function ShopSection() {
+export default function ShopSection({ onClose }) {
   const [view, setView] = useState('home')
   const [activeCategory, setActiveCategory] = useState(null)
   const [selectedItems, setSelectedItems] = useState([])
-  const sectionRef = useRef(null)
   const categoryRef = useRef(null)
 
-  const scrollToTop = () =>
-    sectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'instant' })
 
   function handleEnter() {
     categoryRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -51,8 +53,8 @@ export default function ShopSection() {
   }
 
   return (
-    <section id="shop" ref={sectionRef}>
-      <AnimatePresence mode="wait">
+    <section>
+      <AnimatePresence mode="wait" initial={false}>
         {view === 'home' && (
           <motion.div
             key="home"
@@ -61,7 +63,7 @@ export default function ShopSection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <ShopHero onEnter={handleEnter} selectedItems={selectedItems} />
+            <ShopHero onEnter={handleEnter} onClose={onClose} selectedItems={selectedItems} />
             <div ref={categoryRef}>
               <CategoryGrid onSelectCategory={handleSelectCategory} />
             </div>
