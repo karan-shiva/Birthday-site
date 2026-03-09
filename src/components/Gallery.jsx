@@ -20,15 +20,15 @@ const BoxesCore = () => {
               key={`col-${j}`}
               className={styles.col}
               style={{
-                backgroundImage: "url('/Gemini_Generated_Image_kx1v28kx1v28kx1v.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              whileHover={{
                 backgroundImage: "url('/IMG_3247.jpeg')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                transition: { duration: 0 },
+                filter: 'grayscale(1) sepia(0.5) hue-rotate(220deg) saturate(1.4) blur(2px) brightness(0.7)',
+                willChange: 'filter',
+              }}
+              whileHover={{
+                filter: 'grayscale(0) blur(0px)',
+                transition: { duration: 0.3 },
               }}
             >
               {j % 2 === 0 && i % 2 === 0 ? (
