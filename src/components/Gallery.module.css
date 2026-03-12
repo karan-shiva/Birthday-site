@@ -65,6 +65,11 @@
   mask-image: radial-gradient(transparent 25%, #0a0820 80%);
   -webkit-mask-image: radial-gradient(transparent 25%, #0a0820 80%);
   pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.boxesWrapper:has(.col:hover) .mask {
+  opacity: 0;
 }
 
 .boxesContainer {
@@ -80,7 +85,7 @@
 
 .row {
   width: 192px;
-  height: 144px;
+  height: 192px;
   border-left: 1px solid #334155;
   position: relative;
   flex-shrink: 0;
@@ -88,7 +93,7 @@
 
 .col {
   width: 192px;
-  height: 144px;
+  height: 192px;
   border-right: 1px solid #334155;
   border-top: 1px solid #334155;
   position: relative;

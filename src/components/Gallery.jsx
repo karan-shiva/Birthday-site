@@ -5,12 +5,14 @@ import styles from './Gallery.module.css'
 const rows = new Array(50).fill(1)
 const cols = new Array(33).fill(1)
 
+const GALLERY_IMAGES = Array.from({ length: 88 }, (_, k) => `/Gallery/IMG${k + 1}.jpg`)
+
 const BoxesCore = () => {
   return (
     <div
       className={styles.boxesContainer}
       style={{
-        transform: 'translate(-40%,-60%) skewX(-18deg) skewY(5.25deg) scale(0.675) rotate(0deg) translateZ(0)',
+        transform: 'translate(-40%,-60%) skewX(-10deg) skewY(3deg) scale(0.675) rotate(0deg) translateZ(0)',
       }}
     >
       {rows.map((_, i) => (
@@ -20,8 +22,9 @@ const BoxesCore = () => {
               key={`col-${j}`}
               className={styles.col}
               style={{
-                backgroundImage: "url('/IMG_3247.jpeg')",
-                backgroundSize: 'cover',
+                backgroundImage: `url('${GALLERY_IMAGES[(i * cols.length + j) % GALLERY_IMAGES.length]}')`,
+                backgroundSize: '100% 100%',
+                backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 filter: 'grayscale(1) sepia(0.5) hue-rotate(220deg) saturate(1.4) blur(2px) brightness(0.7)',
                 willChange: 'filter',
