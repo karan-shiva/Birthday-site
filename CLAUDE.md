@@ -21,7 +21,7 @@ src/
 └── components/
     ├── ParticleBackground.jsx  # Fixed animated orb layer (pure CSS)
     ├── Hero.jsx                # 100vh hero with confetti (two-phase burst + shower) + balloons
-    ├── Gallery.jsx             # 3D skewed box grid (50×33) with hover image reveal
+    ├── Gallery.jsx             # Skewed box grid (50×33) with per-cell unique images; hover reveals full-color photo
     ├── Gallery.module.css
     ├── WishWheel.jsx           # Radial orbital timeline — nodes orbit center; click to expand wish card
     ├── WishWheel.module.css
@@ -61,6 +61,6 @@ All design tokens live in `src/index.css` as CSS custom properties. Key tokens:
 ## Customization
 - **Person name/age:** Edit `Hero.jsx`
 - **Wish wheel data:** Edit `timelineData` and `birthdayMessage` in `WishWheel.jsx`. Node images use `/public/profile.jpeg`; wish card header uses `/public/wish.jpeg`.
-- **Gallery images:** Replace `/public/Gemini_Generated_Image_kx1v28kx1v28kx1v.png` (default) and `/public/IMG_3247.jpeg` (hover) with your own photos. Image paths are referenced in `Gallery.jsx` `BoxesCore`.
+- **Gallery images:** Add/replace photos in `/public/Gallery/` named `IMG1.jpg` through `IMG88.jpg`. The `GALLERY_IMAGES` array in `Gallery.jsx` is generated from these filenames and cycles through them across all cells. Cell size is 192×192px (square). Transform skew is `skewX(-10deg) skewY(3deg)`.
 - **Shop products:** Edit `PRODUCTS` array in `src/products.js`. Each product needs `id`, `category` (`'bags'|'jewellery'|'clothes'`), `name`, `description`, `image`.
 - **Shop categories:** Edit `CATEGORIES` array in `src/products.js`.
