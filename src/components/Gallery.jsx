@@ -5,7 +5,7 @@ import styles from './Gallery.module.css'
 const rows = new Array(50).fill(1)
 const cols = new Array(33).fill(1)
 
-const GALLERY_IMAGES = Array.from({ length: 90 }, (_, k) => `/Gallery/IMG${k + 1}.jpg`)
+const GALLERY_IMAGES = Array.from({ length: 90 }, (_, k) => `/Gallery/IMG${k + 1}.webp`)
 
 const BoxesCore = () => {
   return (

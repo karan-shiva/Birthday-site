@@ -52,7 +52,7 @@ export default function Confirmation({ selectedItems, onChangeMind }) {
           <>
             <div className={styles.imageWrap}>
               <motion.img
-                src={first.image}
+                src={first.images[0]}
                 alt={first.name}
                 className={styles.image}
                 initial={{ opacity: 0 }}
@@ -100,7 +100,7 @@ export default function Confirmation({ selectedItems, onChangeMind }) {
                   className={styles.multiItem}
                   variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }}
                 >
-                  <img src={item.image} alt={item.name} className={styles.multiImage} />
+                  <img src={item.images[0]} alt={item.name} className={styles.multiImage} />
                   <p className={styles.multiName}>{item.name}</p>
                 </motion.div>
               ))}

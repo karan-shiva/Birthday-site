@@ -1,30 +1,21 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ShopHero from './ShopHero'
-import CategoryGrid from './CategoryGrid'
 import ProductGrid from './ProductGrid'
 import Confirmation from './Confirmation'
 
-export default function ShopSection({ onClose }) {
-  const [view, setView] = useState('home')
-  const [activeCategory, setActiveCategory] = useState(null)
+export default function ShopSection() {
+  const [view, setView] = useState('shop')
   const [selectedItems, setSelectedItems] = useState([])
-  const categoryRef = useRef(null)
+  const sectionRef = useRef(null)
+  const productsRef = useRef(null)
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [])
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'instant' })
-
-  function handleEnter() {
-    categoryRef.current?.scrollIntoView({ behavior: 'smooth' })
+  function scrollToSection() {
+    sectionRef.current?.scrollIntoView({ behavior: 'instant' })
   }
 
-  function handleSelectCategory(categoryId) {
-    setActiveCategory(categoryId)
-    setView('products')
-    scrollToTop()
+  function handleEnter() {
+    productsRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   function handleSelectItem(item) {
@@ -37,54 +28,34 @@ export default function ShopSection({ onClose }) {
 
   function handleConfirm() {
     setView('confirmed')
-    scrollToTop()
+    scrollToSection()
   }
 
   function handleChangeMind() {
     setSelectedItems([])
-    setActiveCategory(null)
-    setView('home')
-    scrollToTop()
-  }
-
-  function handleBack() {
-    setView('home')
-    scrollToTop()
+    setView('shop')
+    scrollToSection()
   }
 
   return (
-    <section>
+    <section ref={sectionRef}>
       <AnimatePresence mode="wait" initial={false}>
-        {view === 'home' && (
+        {view === 'shop' && (
           <motion.div
-            key="home"
+            key="shop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <ShopHero onEnter={handleEnter} onClose={onClose} selectedItems={selectedItems} />
-            <div ref={categoryRef}>
-              <CategoryGrid onSelectCategory={handleSelectCategory} />
+            <ShopHero onEnter={handleEnter} selectedItems={selectedItems} />
+            <div ref={productsRef}>
+              <ProductGrid
+                selectedItems={selectedItems}
+                onSelect={handleSelectItem}
+                onConfirm={handleConfirm}
+              />
             </div>
-          </motion.div>
-        )}
-
-        {view === 'products' && (
-          <motion.div
-            key="products"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.35 }}
-          >
-            <ProductGrid
-              categoryId={activeCategory}
-              selectedItems={selectedItems}
-              onSelect={handleSelectItem}
-              onBack={handleBack}
-              onConfirm={handleConfirm}
-            />
           </motion.div>
         )}
 

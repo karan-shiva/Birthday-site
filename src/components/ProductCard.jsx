@@ -1,7 +1,21 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './ProductCard.module.css'
 
 export default function ProductCard({ product, isSelected, onSelect }) {
+  const [imgIndex, setImgIndex] = useState(0)
+  const hasMultiple = product.images.length > 1
+
+  function prev(e) {
+    e.stopPropagation()
+    setImgIndex(i => (i - 1 + product.images.length) % product.images.length)
+  }
+
+  function next(e) {
+    e.stopPropagation()
+    setImgIndex(i => (i + 1) % product.images.length)
+  }
+
   return (
     <motion.button
       className={`glass ${styles.card} ${isSelected ? styles.selected : ''}`}
@@ -12,11 +26,12 @@ export default function ProductCard({ product, isSelected, onSelect }) {
     >
       <div className={styles.imageWrap}>
         <img
-          src={product.image}
+          src={product.images[imgIndex]}
           alt={product.name}
           className={styles.image}
           loading="lazy"
         />
+
         {isSelected && (
           <motion.div
             className={styles.checkOverlay}
@@ -27,11 +42,22 @@ export default function ProductCard({ product, isSelected, onSelect }) {
             <span className={styles.checkmark}>✓</span>
           </motion.div>
         )}
+
+        {hasMultiple && (
+          <>
+            <button className={`${styles.arrow} ${styles.arrowLeft}`} onClick={prev} aria-label="Previous image">‹</button>
+            <button className={`${styles.arrow} ${styles.arrowRight}`} onClick={next} aria-label="Next image">›</button>
+            <div className={styles.dots}>
+              {product.images.map((_, i) => (
+                <span key={i} className={`${styles.dot} ${i === imgIndex ? styles.dotActive : ''}`} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <div className={styles.info}>
         <h3 className={styles.name}>{product.name}</h3>
-        <p className={styles.description}>{product.description}</p>
         {isSelected && (
           <p className={styles.selectedLabel}>Selected ✨</p>
         )}

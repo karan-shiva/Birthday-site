@@ -1,31 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { CATEGORIES, getProductsByCategory } from '../products'
+import { PRODUCTS } from '../products'
 import ProductCard from './ProductCard'
 import styles from './ProductGrid.module.css'
 
-export default function ProductGrid({ categoryId, selectedItems, onSelect, onBack, onConfirm }) {
-  const products = getProductsByCategory(categoryId)
-  const category = CATEGORIES.find(c => c.id === categoryId)
+export default function ProductGrid({ selectedItems, onSelect, onConfirm }) {
   const hasSelections = selectedItems?.length > 0
 
   return (
     <section className={styles.section}>
-      <div className={styles.header}>
-        <motion.button
-          className={styles.backBtn}
-          onClick={onBack}
-          whileHover={{ x: -3 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          ← Back
-        </motion.button>
-
-        <div className={styles.titleWrap}>
-          <span className={styles.icon}>{category?.icon}</span>
-          <h2 className={styles.title}>{category?.label}</h2>
-        </div>
-      </div>
-
       <motion.div
         className={styles.grid}
         initial="hidden"
@@ -35,7 +17,7 @@ export default function ProductGrid({ categoryId, selectedItems, onSelect, onBac
           visible: { transition: { staggerChildren: 0.08 } },
         }}
       >
-        {products.map((product) => (
+        {PRODUCTS.map((product) => (
           <motion.div
             key={product.id}
             variants={{
