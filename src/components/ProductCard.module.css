@@ -9,7 +9,9 @@
   text-align: left;
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
   padding: 0;
-  aspect-ratio: 2 / 3;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .card:hover {
@@ -23,8 +25,8 @@
 
 .imageWrap {
   position: relative;
-  flex: 1;
-  min-height: 0;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
 }
 
