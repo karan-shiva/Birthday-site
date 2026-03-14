@@ -30,7 +30,7 @@ const timelineData = [
     id: 3,
     title: 'Karan',
     date: 'Mar 2024',
-    content: "Happy Birthday Babee!\n\nWelcome to your late 20s cuuttuuu! I love you very much. I mean I always knew I loved you before and you were the first person that I wanted to share any news be it good or bad. I always have and will love talking to you, majorly cause you always give me such juicy gossips xD. I'm really glad that we finally took the big step and started dating.\n\nAs much as I hate the long distance in LDR, I love the R even more. There is no other person that I'd rather be dating. I can't wait for us to meet soon and travel the world. Like you said, 2026 is our year, so lets make the best of it.\n\nLove,\nAunty (not Karan xD)",
+    content: "Happy Birthday Baabbeee,\n\nI really miss you cuutttuu! I really wish we could have met in person like last year. I can't wait to see you again in May! Counting down the days!! I can't wait to go on dates, can't wait to travel the world, can't wait to turn on the sprinklers, can't wait to spend the rest of our lives together.\n\nIt's been more than 7 years since we've known each other, easily the best 7 years of your life xD. You have always been one of my favorite people. I could spend hours talking about nothing and everything with you! I've loved our goss sessions, I've loved our non-date dates. I've always loved you and I'm so happy that we finally took that big step and started dating. I love our story and wouldn't change a single thing!\n\nHave an amazing Birthday cuuutttuuu!\n\nI will always love you,\n\nKaran\n\nP.S. I'm being nice and signing off as Karan xD",
     icon: FaCode,
     image: '/Message/Karan.webp',
     wishImage: '/Message/Karan-msg.webp',
@@ -290,13 +290,13 @@ export default function WishWheel({ onOpenShop }) {
               borderColor: isExpanded
                 ? 'rgba(255,255,255,0.9)'
                 : isRelated
-                ? 'rgba(255,255,255,0.8)'
-                : 'rgba(255,255,255,0.4)',
+                  ? 'rgba(255,255,255,0.8)'
+                  : 'rgba(255,255,255,0.4)',
               boxShadow: isExpanded
                 ? '0 0 20px rgba(167,139,250,0.6), 0 0 40px rgba(167,139,250,0.2)'
                 : isRelated
-                ? '0 0 12px rgba(255,255,255,0.3)'
-                : undefined,
+                  ? '0 0 12px rgba(255,255,255,0.3)'
+                  : undefined,
               background: isExpanded
                 ? 'rgba(255,255,255,0.15)'
                 : 'var(--glass-bg)',

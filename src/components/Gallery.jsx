@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import styles from './Gallery.module.css'
 
@@ -7,7 +7,7 @@ const cols = new Array(33).fill(1)
 
 const GALLERY_IMAGES = Array.from({ length: 90 }, (_, k) => `/Gallery/IMG${k + 1}.webp`)
 
-const BoxesCore = () => {
+const BoxesCore = ({ loadedRows }) => {
   return (
     <div
       className={styles.boxesContainer}
@@ -22,13 +22,17 @@ const BoxesCore = () => {
               key={`col-${j}`}
               className={styles.col}
               style={{
-                backgroundImage: `url('${GALLERY_IMAGES[(i * cols.length + j) % GALLERY_IMAGES.length]}')`,
+                backgroundImage: loadedRows.has(i)
+                  ? `url('${GALLERY_IMAGES[(i * cols.length + j) % GALLERY_IMAGES.length]}')`
+                  : 'none',
                 backgroundSize: '100% 100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 filter: 'grayscale(1) sepia(0.5) hue-rotate(220deg) saturate(1.4) blur(2px) brightness(0.7)',
                 willChange: 'filter',
               }}
+              animate={{ opacity: loadedRows.has(i) ? 1 : 0.4 }}
+              transition={{ duration: 0.5 }}
               whileHover={{
                 filter: 'grayscale(0) blur(0px)',
                 transition: { duration: 0.3 },
@@ -54,17 +58,34 @@ const BoxesCore = () => {
   )
 }
 
-const Boxes = React.memo(BoxesCore)
-
 export default function Gallery({ maskGradient, label = 'Hover the tiles to walk down memory lane.' }) {
+  const [loadedRows, setLoadedRows] = useState(new Set())
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          rows.forEach((_, i) => {
+            setTimeout(() => setLoadedRows(prev => new Set([...prev, i])), i * 15)
+          })
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '150px' }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="gallery" className={styles.section}>
+    <section id="gallery" className={styles.section} ref={sectionRef}>
       <div className={styles.boxesWrapper}>
         <div
           className={styles.mask}
           style={maskGradient ? { maskImage: maskGradient, WebkitMaskImage: maskGradient } : undefined}
         />
-        <Boxes />
+        <BoxesCore loadedRows={loadedRows} />
         <div className={styles.header}>
           <motion.div
             initial={{ opacity: 0, y: 50 }}

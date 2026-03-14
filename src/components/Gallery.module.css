@@ -97,6 +97,7 @@
   border-right: 1px solid #334155;
   border-top: 1px solid #334155;
   position: relative;
+  background: linear-gradient(135deg, #1a1035 0%, #150e30 100%);
 }
 
 .plusIcon {
