@@ -38,6 +38,7 @@ const BoxesCore = ({ loadedRows }) => {
                 transition: { duration: 0.3 },
               }}
             >
+              {!loadedRows.has(i) && <div className={styles.cellShimmer} />}
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -67,12 +68,12 @@ export default function Gallery({ maskGradient, label = 'Hover the tiles to walk
       ([entry]) => {
         if (entry.isIntersecting) {
           rows.forEach((_, i) => {
-            setTimeout(() => setLoadedRows(prev => new Set([...prev, i])), i * 15)
+            setTimeout(() => setLoadedRows(prev => new Set([...prev, i])), i * 8)
           })
           observer.disconnect()
         }
       },
-      { rootMargin: '150px' }
+      { rootMargin: '1200px' }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()

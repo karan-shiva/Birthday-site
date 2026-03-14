@@ -100,6 +100,21 @@
   background: linear-gradient(135deg, #1a1035 0%, #150e30 100%);
 }
 
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.cellShimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+  background-size: 400px 100%;
+  animation: shimmer 1.6s infinite linear;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .plusIcon {
   position: absolute;
   height: 24px;
